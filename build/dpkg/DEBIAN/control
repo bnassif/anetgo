@@ -1,0 +1,9 @@
+Package: anetctl
+Version: VERSION_NUMBER
+Section: base
+Priority: optional
+Architecture: amd64
+Maintainer: Ben Nassif <bennassif@gmail.com>
+Description: Chroot Jail Management
+ A tool for managing jail environments in Linux
+ systems, including jail user management.
