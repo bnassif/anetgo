@@ -1,0 +1,38 @@
+name: docs
+
+on:
+  push:
+    branches: ["**"]
+#  pull_request:
+#    branches: ["**"]
+
+permissions:
+  contents: write   # needed for auto-commit on push
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (full history for tags/version)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Generate docs
+        run: make docs
+
+      # If it's a push (non-PR), auto-commit changes to the same branch
+      - name: Auto-commit docs (pushes)
+        if: ${{ github.event_name == 'push' }}
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(docs): regenerate docs"
+          commit_user_name: github-actions[bot]
+          commit_user_email: 41898282+github-actions[bot]@users.noreply.github.com
+          file_pattern: docs/**
