@@ -9,7 +9,7 @@ import (
 )
 
 var assignCmd = &cobra.Command{
-	Use:   "assign SERVER_ID IP_ADDRESS [IP_ADDRESS...]",
+	Use:   "assign [INSTANCE_ID] [IP_ADDRESS...]",
 	Short: "Assign one or more public IP addresses to a VM",
 	Args:  cobra.MinimumNArgs(2),
 	Run: func(cmd *cobra.Command, args []string) {

@@ -9,7 +9,7 @@ import (
 )
 
 var addCmd = &cobra.Command{
-	Use:     "add INSTANCE_ID DESCRIPTION",
+	Use:     "add [INSTANCE_ID] [DESCRIPTION]",
 	Aliases: []string{"create", "make"},
 	Short:   "Create a snapshot of the target VM",
 	Args:    cobra.MinimumNArgs(2),

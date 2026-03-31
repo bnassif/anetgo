@@ -8,7 +8,7 @@ import (
 )
 
 var onCmd = &cobra.Command{
-	Use:   "on INSTANCE_ID [INSTANCE_ID...]",
+	Use:   "on [INSTANCE_ID...]",
 	Short: "Power on a VM that is currently powered off, or multiple",
 	Args:  cobra.MinimumNArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {

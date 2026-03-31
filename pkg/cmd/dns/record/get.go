@@ -9,7 +9,7 @@ import (
 )
 
 var getCmd = &cobra.Command{
-	Use:     "get ZONE_ID_OR_NAME",
+	Use:     "get [ZONE_ID | DOMAIN_NAME]",
 	Aliases: []string{"list"},
 	Short:   "Get the DNS Records of a Zone",
 	Args:    cobra.ExactArgs(1),

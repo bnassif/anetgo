@@ -11,7 +11,7 @@ import (
 var addOpts *viper.Viper
 
 var addCmd = &cobra.Command{
-	Use:     "add NAME PLAN LOCATION IMAGE/SNAPHOT",
+	Use:     "add [NAME] [PLAN] [LOCATION] [IMAGE | SNAPHOT]",
 	Aliases: []string{"create", "make"},
 	Short:   "Create a new VM or many with the same specs",
 	Args:    cobra.ExactArgs(4),

@@ -29,9 +29,9 @@ func detectSnapshotKey(arg string) (key string, value string) {
 }
 
 var getCmd = &cobra.Command{
-	Use:   "get [SNAPSHOT_ID/UUID/CHECKSUM]",
+	Use:   "get [SNAPSHOT_ID | UUID | CHECKSUM]",
 	Short: "List available snapshots, optionally filtering items",
-	Args:  cobra.ExactArgs(1),
+	Args:  cobra.MaximumNArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		action := string("list-snapshots")
 		rootKey := fmt.Sprintf("%sresponse", action)

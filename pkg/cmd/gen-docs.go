@@ -88,6 +88,7 @@ Supported formats:
 			if !quietMode {
 				fmt.Printf("Unsupported format: %s\n", format)
 			}
+			os.Exit(1)
 		}
 	},
 }

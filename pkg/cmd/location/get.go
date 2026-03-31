@@ -9,7 +9,7 @@ import (
 
 var getCmd = &cobra.Command{
 	Use:   "get",
-	Short: "List available locations, limit by platform, or get a specific one",
+	Short: "List available locations",
 	Args:  cobra.NoArgs,
 	Run: func(cmd *cobra.Command, args []string) {
 		action := string("list-locations")

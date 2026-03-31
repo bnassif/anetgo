@@ -19,7 +19,7 @@ func detectImageKey(arg string) (key string, value string) {
 }
 
 var reprovisionCmd = &cobra.Command{
-	Use:   "reprovision NAME PLAN IMAGE/SNAPHOT",
+	Use:   "reprovision [INSTANCE_ID] [PLAN] [IMAGE | SNAPSHOT]",
 	Short: "Reprovision a VM with a bare image or using a snapshot",
 	Args:  cobra.ExactArgs(3),
 	Run: func(cmd *cobra.Command, args []string) {

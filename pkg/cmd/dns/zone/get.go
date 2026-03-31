@@ -9,10 +9,10 @@ import (
 )
 
 var getCmd = &cobra.Command{
-	Use:     "get [ZONE_ID_OR_NAME]",
+	Use:     "get [ZONE_ID | DOMAIN_NAME]",
 	Aliases: []string{"list"},
 	Short:   "Get all DNS zones, or optionally a single one",
-	Args:    cobra.ExactArgs(1),
+	Args:    cobra.MaximumNArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		action := string("dns-list-zones")
 		rootKey := fmt.Sprintf("%sresponse", action)

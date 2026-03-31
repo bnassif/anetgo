@@ -24,7 +24,7 @@ PKG_DIR := $(OUT_ROOT)/$(BIN)_$(VERSION)
 # Generated asset dirs inside the package skeleton
 PKG_BIN := $(PKG_DIR)/usr/local/bin/$(BIN)
 PKG_MAN_DIR := $(PKG_DIR)/usr/local/man/man1
-PKG_BASH_DIR := $(PKG_DIR)/usr/local/lib/$(BIN)
+PKG_BASH_DIR := $(PKG_DIR)/usr/share/bash-completions/completions
 PKG_ZSH_DIR := $(PKG_DIR)/usr/share/zsh/vendor-completions
 PKG_FISH_DIR := $(PKG_DIR)/usr/share/fish/vendor_completions.d
 
@@ -125,17 +125,15 @@ stage_bin: ## Copy binary into package skeleton
 gen_man: ## Generate & stage man pages (via gen-docs)
 	mkdir -p "$(OUT_ROOT)/mantemp"
 	"$(PKG_BIN)" gen-docs -f man "$(OUT_ROOT)/mantemp/"
-	# gzip everything produced (extensions may vary depending on generator)
 	find "$(OUT_ROOT)/mantemp" -type f -exec gzip -9 {} \;
 	mkdir -p "$(PKG_MAN_DIR)"
-	# move gzipped man files into man1
 	find "$(OUT_ROOT)/mantemp" -maxdepth 1 -type f -name '*.gz' -exec mv {} "$(PKG_MAN_DIR)/" \;
 
 # Generate bash/zsh/fish completions
 .PHONY: gen_completions
 gen_completions: ## Generate & stage shell completions
 	mkdir -p "$(PKG_BASH_DIR)" "$(PKG_ZSH_DIR)" "$(PKG_FISH_DIR)"
-	"$(PKG_BIN)" completion bash > "$(PKG_BASH_DIR)/bash_completion"
+	"$(PKG_BIN)" completion bash > "$(PKG_BASH_DIR)/$(BIN)"
 	"$(PKG_BIN)" completion zsh  > "$(PKG_ZSH_DIR)/_$(BIN)"
 	"$(PKG_BIN)" completion fish > "$(PKG_FISH_DIR)/$(BIN).fish"
 

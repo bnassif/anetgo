@@ -8,7 +8,7 @@ import (
 )
 
 var getCmd = &cobra.Command{
-	Use:     "get INSTANCE_ID",
+	Use:     "get [INSTANCE_ID]",
 	Aliases: []string{"describe"},
 	Short:   "Get the details of a single VM by its ID",
 	Args:    cobra.ExactArgs(1),

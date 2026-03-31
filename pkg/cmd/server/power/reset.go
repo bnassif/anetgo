@@ -11,7 +11,7 @@ import (
 var resetOpts *viper.Viper
 
 var resetCmd = &cobra.Command{
-	Use:     "reset INSTANCE_ID [INSTANCE_ID...]",
+	Use:     "reset [INSTANCE_ID...]",
 	Aliases: []string{"cycle", "reboot"},
 	Short:   "Power cycle a VM, or multiple VMs",
 	Args:    cobra.MinimumNArgs(1),

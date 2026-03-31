@@ -12,7 +12,7 @@ import (
 var addOpts *viper.Viper
 
 var addCmd = &cobra.Command{
-	Use:     "add TYPE NAME CONTENT",
+	Use:     "add [TYPE] [NAME] [CONTENT]",
 	Aliases: []string{"create"},
 	Short:   "Create a new DNS Record",
 	Args:    cobra.ExactArgs(3),

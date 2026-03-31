@@ -8,7 +8,7 @@ import (
 )
 
 var deleteCmd = &cobra.Command{
-	Use:   "delete KEY_ID",
+	Use:   "delete [KEY_ID]",
 	Short: "Delete an SSH key by the ID in Atlantic.net's Cloud",
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {

@@ -8,7 +8,7 @@ import (
 )
 
 var addCmd = &cobra.Command{
-	Use:   "add KEY_NAME KEY_VALUE",
+	Use:   "add [KEY_NAME] [KEY_VALUE]",
 	Short: "Add an SSH key for use in the Atlantic.net Cloud",
 	Args:  cobra.ExactArgs(2),
 	Run: func(cmd *cobra.Command, args []string) {

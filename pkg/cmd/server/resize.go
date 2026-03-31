@@ -8,7 +8,7 @@ import (
 )
 
 var resizeCmd = &cobra.Command{
-	Use:   "resize INSTANCE_ID PLAN",
+	Use:   "resize [INSTANCE_ID] [PLAN]",
 	Short: "Resize a VM to a plan size with a larger or equal disk size",
 	Args:  cobra.ExactArgs(2),
 	Run: func(cmd *cobra.Command, args []string) {

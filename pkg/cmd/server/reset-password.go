@@ -8,7 +8,7 @@ import (
 )
 
 var resetPasswordCmd = &cobra.Command{
-	Use:   "reset-password INSTANCE_ID",
+	Use:   "reset-password [INSTANCE_ID]",
 	Short: "Reset a VMs default user password with the new value returned",
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {

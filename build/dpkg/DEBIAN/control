@@ -1,9 +1,8 @@
 Package: anetctl
 Version: VERSION_NUMBER
-Section: base
+Section: utils
 Priority: optional
 Architecture: amd64
 Maintainer: Ben Nassif <bennassif@gmail.com>
-Description: Chroot Jail Management
- A tool for managing jail environments in Linux
- systems, including jail user management.
+Description: CLI for the Atlantic.net Cloud API
+ anetctl is a command-line tool for interacting with the Atlantic.net Cloud API.

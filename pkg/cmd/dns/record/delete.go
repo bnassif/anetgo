@@ -8,7 +8,7 @@ import (
 )
 
 var deleteCmd = &cobra.Command{
-	Use:     "delete RECORD_ID",
+	Use:     "delete [RECORD_ID]",
 	Aliases: []string{"remove"},
 	Short:   "Remove a DNS Record by ID",
 	Args:    cobra.ExactArgs(1),

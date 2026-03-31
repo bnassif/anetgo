@@ -40,7 +40,7 @@ cd ./anetctl/
 make release
 ```
 
-The resulting binary and deb package will be output to the ./artifact directory by default.
+The resulting binary and deb package will be output to the `./dist` directory by default.
 
 To override this, pass the `OUT_ROOT` parameter to make:
 

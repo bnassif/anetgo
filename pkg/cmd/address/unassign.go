@@ -9,9 +9,9 @@ import (
 )
 
 var unassignCmd = &cobra.Command{
-	Use:   "unassign IP_ADDRESS",
+	Use:   "unassign [IP_ADDRESS...]",
 	Short: "Unassign an IP address from a VM",
-	Args:  cobra.ExactArgs(1),
+	Args:  cobra.MinimumNArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		action := string("unassign-public-ip")
 		rootKey := fmt.Sprintf("%sresponse", action)
