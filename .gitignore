@@ -5,7 +5,15 @@
 *.out
 
 dist/
-build/*temp
+
+# Build artifacts
+build/bin/*
+build/completions/bash/*
+build/completions/fish/*
+build/completions/zsh/*
+build/manpages/man1/*
+build/mantemp/*
+build/.*-stamp
 
 # Go workspace file
 go.work

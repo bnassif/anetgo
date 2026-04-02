@@ -9,7 +9,7 @@ import (
 )
 
 var deleteCmd = &cobra.Command{
-	Use:     "delete ZONE_ID_OR_NAME",
+	Use:     "delete [ZONE_ID | DOMAIN_NAME]",
 	Aliases: []string{"remove"},
 	Short:   "Remove a DNS Zone and all of its records",
 	Run: func(cmd *cobra.Command, args []string) {

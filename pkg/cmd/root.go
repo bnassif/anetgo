@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/bnassif/anetgo/pkg"
 	"github.com/bnassif/anetgo/pkg/api"
 	"github.com/bnassif/anetgo/pkg/cmd/address"
 	"github.com/bnassif/anetgo/pkg/cmd/dns"
@@ -20,15 +21,12 @@ import (
 )
 
 var (
-	// Version is the CLI build version (override at build time with -ldflags)
-	Version = "dev"
-
 	// Global viper instance for config/flags/env
 	rootOpts *viper.Viper
 )
 
 var RootCmd = &cobra.Command{
-	Version: Version,
+	Version: pkg.Version,
 	Use:     "anetctl",
 	Short:   "CLI for Atlantic.Net Cloud API",
 	Long: `A CLI interface to Atlantic.Net's Cloud API, enabling querying and managing

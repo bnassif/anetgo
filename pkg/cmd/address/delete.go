@@ -9,7 +9,7 @@ import (
 )
 
 var deleteCmd = &cobra.Command{
-	Use:     "delete IP_ADDRESS [IP_ADDRESS...]",
+	Use:     "delete [IP_ADDRESS...]",
 	Aliases: []string{"release"},
 	Short:   "Release one or more public IP addresses from your account",
 	Args:    cobra.MinimumNArgs(1),

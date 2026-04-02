@@ -8,7 +8,7 @@ import (
 )
 
 var deleteCmd = &cobra.Command{
-	Use:     "delete INSTANCE_ID [INSTANCE_ID...]",
+	Use:     "delete [INSTANCE_ID...]",
 	Aliases: []string{"terminate", "destroy"},
 	Short:   "Remove one or more VMs from your account",
 	Args:    cobra.MinimumNArgs(1),

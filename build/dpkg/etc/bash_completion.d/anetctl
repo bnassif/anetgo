@@ -1,3 +1,0 @@
-if [[ -f /usr/local/lib/anetctl/bash_completion ]]; then
-    . /usr/local/lib/anetctl/bash_completion
-fi

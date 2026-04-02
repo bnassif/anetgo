@@ -8,8 +8,8 @@ import (
 )
 
 var restoreCmd = &cobra.Command{
-	Use:   "restore SNAPSHOT_ID",
-	Short: "Delete a snapshot",
+	Use:   "restore [SNAPSHOT_ID]",
+	Short: "Restore a snapshot",
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		action := string("restore-snapshot")

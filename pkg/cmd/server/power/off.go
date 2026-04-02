@@ -11,7 +11,7 @@ import (
 var offOpts *viper.Viper
 
 var offCmd = &cobra.Command{
-	Use:   "off INSTANCE_ID [INSTANCE_ID...]",
+	Use:   "off [INSTANCE_ID...]",
 	Short: "Power off a VM that is currently powered on, or multiple VMs",
 	Args:  cobra.MinimumNArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {

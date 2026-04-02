@@ -1,0 +1,89 @@
+# Name. (required)
+name: anetctl
+
+# Architecture. (required)
+# Examples: `all`, `amd64`, `386`, `arm5`, `arm6`, `arm7`, `arm64`, `mips`,
+# `mipsle`, `mips64le`, `ppc64le`, `s390`
+arch: ${BUILDARCH}
+
+# Platform.
+# Examples: `linux`, `darwin`, `windows`(?)
+platform: ${BUILDOS}
+
+# Version. (required)
+version: ${SEMVER}
+
+# Version Schema allows you to specify how to parse the version string.
+version_schema: semver
+
+# Section.
+section: utils
+
+# Priority.
+priority: optional
+
+# Maintainer. (required)
+maintainer: Ben Nassif <bennassif@gmail.com>
+
+# Description.
+description: |-
+  CLI for the Atlantic.net Cloud API
+   anetctl is a command-line tool for interacting with the Atlantic.net Cloud API.
+
+# Vendor.
+vendor: GoReleaser
+
+# Package's homepage.
+homepage: https://github.com/bnassif/anetgo
+
+# License.
+license: MIT
+
+# Disables globbing for files, config_files, etc.
+disable_globbing: false
+
+# Suggested packages. (overridable)
+recommends:
+  - jq
+
+overrides:
+  apk:
+    suggests:
+      - bash
+      - bash-completion
+
+# Contents to add to the package
+contents:
+  # Install the binary
+  - src: build/bin/anetctl
+    dst: /usr/bin/anetctl
+
+  # Add in completions
+  ## Bash Completions
+  - src: build/completions/bash/
+    dst: /usr/share/bash-completion/completions/
+  ## Fish Completions
+  - src: build/completions/fish/
+    dst: /usr/share/fish/vendor-completions.d/
+  ## ZSH Completions
+  - src: build/completions/zsh/
+    dst: /usr/share/zsh/vendor-completions/
+
+  # Add in man pages
+  - src: build/manpages/man1/
+    dst: /usr/share/man/man1/
+
+rpm:
+  packager: Benjamin Nassif <bennassif@gmail.com>
+  signature:
+    key_file: ${PGP_PRIVATE_KEY_FILE}
+    key_id: ${PGP_PRIVATE_KEY_ID}
+deb:
+  signature:
+    signer: Benjamin Nassif <bennassif@gmail.com>
+    key_file: ${PGP_PRIVATE_KEY_FILE}
+    key_id: ${PGP_PRIVATE_KEY_ID}
+apk:
+  signature:
+    key_file: ${RSA_PRIVATE_KEY_FILE}
+    key_name: anetctl

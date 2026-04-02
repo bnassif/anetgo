@@ -8,7 +8,7 @@ import (
 )
 
 var deleteCmd = &cobra.Command{
-	Use:   "delete SNAPSHOT_ID",
+	Use:   "delete [SNAPSHOT_ID]",
 	Short: "Delete a snapshot",
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {

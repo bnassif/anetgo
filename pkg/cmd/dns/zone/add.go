@@ -8,7 +8,7 @@ import (
 )
 
 var addCmd = &cobra.Command{
-	Use:     "add ZONE_NAME",
+	Use:     "add [DOMAIN_NAME]",
 	Aliases: []string{"create"},
 	Short:   "Create a new DNS zone",
 	Args:    cobra.ExactArgs(1),
