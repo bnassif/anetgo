@@ -10,13 +10,13 @@ any resources in Atlantic.Net's Cloud.
 ### Options
 
 ```
-  -h, --help             help for anetctl
-      --key string       The API key to use
-      --raw              Whether to return the raw, unparsed response from the API
-      --secret string    The API secret to use
-      --timeout int      HTTP client timeout in seconds (default 30)
-      --url string       The API base URL to use (default "https://cloudapi.atlantic.net")
-      --version string   The API version to target (default "2010-12-30")
+      --api-version string   The API version to target (default "2010-12-30")
+  -h, --help                 help for anetctl
+      --key string           The API key to use
+      --raw                  Whether to return the raw, unparsed response from the API
+      --secret string        The API secret to use
+      --timeout int          HTTP client timeout in seconds (default 30)
+      --url string           The API base URL to use (default "https://cloudapi.atlantic.net")
 ```
 
 ### SEE ALSO
