@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/bnassif/anetgo/pkg"
 	"github.com/bnassif/anetgo/pkg/api"
 	"github.com/bnassif/anetgo/pkg/cmd/address"
 	"github.com/bnassif/anetgo/pkg/cmd/dns"
@@ -20,15 +21,12 @@ import (
 )
 
 var (
-	// Version is the CLI build version (override at build time with -ldflags)
-	Version = "dev"
-
 	// Global viper instance for config/flags/env
 	rootOpts *viper.Viper
 )
 
 var RootCmd = &cobra.Command{
-	Version: Version,
+	Version: pkg.Version,
 	Use:     "anetctl",
 	Short:   "CLI for Atlantic.Net Cloud API",
 	Long: `A CLI interface to Atlantic.Net's Cloud API, enabling querying and managing
@@ -36,7 +34,7 @@ any resources in Atlantic.Net's Cloud.`,
 	PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
 		cfg := &api.Config{
 			URL:     rootOpts.GetString("url"),
-			Version: rootOpts.GetString("version"),
+			Version: rootOpts.GetString("api-version"),
 			Timeout: rootOpts.GetInt("timeout"),
 			Key:     rootOpts.GetString("key"),
 			Secret:  rootOpts.GetString("secret"),
@@ -69,7 +67,7 @@ func init() {
 	RootCmd.PersistentFlags().String("key", "", "The API key to use")
 	RootCmd.PersistentFlags().String("secret", "", "The API secret to use")
 	RootCmd.PersistentFlags().String("url", "https://cloudapi.atlantic.net", "The API base URL to use")
-	RootCmd.PersistentFlags().String("version", "2010-12-30", "The API version to target")
+	RootCmd.PersistentFlags().String("api-version", "2010-12-30", "The API version to target")
 	RootCmd.PersistentFlags().Int("timeout", 30, "HTTP client timeout in seconds")
 	RootCmd.PersistentFlags().Bool("raw", false, "Whether to return the raw, unparsed response from the API")
 
@@ -77,7 +75,7 @@ func init() {
 	_ = rootOpts.BindPFlag("key", RootCmd.PersistentFlags().Lookup("key"))
 	_ = rootOpts.BindPFlag("secret", RootCmd.PersistentFlags().Lookup("secret"))
 	_ = rootOpts.BindPFlag("url", RootCmd.PersistentFlags().Lookup("url"))
-	_ = rootOpts.BindPFlag("version", RootCmd.PersistentFlags().Lookup("api-version"))
+	_ = rootOpts.BindPFlag("api-version", RootCmd.PersistentFlags().Lookup("api-version"))
 	_ = rootOpts.BindPFlag("timeout", RootCmd.PersistentFlags().Lookup("timeout"))
 	_ = rootOpts.BindPFlag("raw", RootCmd.PersistentFlags().Lookup("raw"))
 

@@ -5,13 +5,28 @@ on:
     types: [published]
 
 permissions:
-  contents: write   # needed to upload assets to the release
+  contents: write
 
 jobs:
-  build-and-upload:
+  build:
+    environment: build
+    name: Build ${{ matrix.goos }}/${{ matrix.goarch }}
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - goos: linux
+            goarch: 386
+          - goos: linux
+            goarch: amd64
+          - goos: linux
+            goarch: arm
+          - goos: linux
+            goarch: arm64
+
     steps:
-      - name: Checkout (full history for tags)
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -26,26 +41,71 @@ jobs:
         id: ver
         run: |
           RAW_TAG="${{ github.event.release.tag_name }}"
-          # strip a leading 'v' if present (v1.2.3 -> 1.2.3)
           STRIPPED="${RAW_TAG#v}"
           echo "version=$STRIPPED" >> "$GITHUB_OUTPUT"
 
-      - name: Build release artifacts
-        env:
-          VERSION: ${{ steps.ver.outputs.version }}
+      - name: Clean output dirs
         run: |
-          # Ensure dist dir is fresh
           rm -rf dist
           mkdir -p dist
-          # Your Makefile's `release` should populate ./dist/
-          make release VERSION="$VERSION"
-          echo "Artifacts:"
-          ls -l dist || true
 
-      - name: Upload artifacts to the GitHub Release
+      - name: Build packages
+        env:
+          VERSION: ${{ steps.ver.outputs.version }}
+          PGP_PRIVATE_KEY_FILE: ${{ runner.temp }}/pgp-private.asc
+          PGP_PRIVATE_KEY_ID: ${{ vars.PGP_PRIVATE_KEY_ID }}
+          PGP_PRIVATE_KEY_PASSPHRASE: ${{ secrets.PGP_PRIVATE_KEY_PASSPHRASE }}
+          RSA_PRIVATE_KEY_FILE: ${{ runner.temp }}/apk-private.rsa
+          RSA_PRIVATE_KEY_PASSPHRASE: ${{ secrets.RSA_PRIVATE_KEY_PASSPHRASE }}
+        run: |
+          printf '%s' "${{ secrets.PGP_PRIVATE_KEY_ASC }}" > "$PGP_PRIVATE_KEY_FILE"
+          printf '%s' "${{ secrets.RSA_PRIVATE_KEY }}" > "$RSA_PRIVATE_KEY_FILE"
+          chmod 0600 "$PGP_PRIVATE_KEY_FILE" "$RSA_PRIVATE_KEY_FILE"
+
+          sudo apt install ca-certificates -y
+          echo 'deb [trusted=yes] https://repo.goreleaser.com/apt/ /' | sudo tee /etc/apt/sources.list.d/goreleaser.list
+          sudo apt update
+          sudo apt install nfpm -y
+
+          make PGP_PRIVATE_KEY_FILE="$PGP_PRIVATE_KEY_FILE" PGP_PRIVATE_KEY_ID="$PGP_PRIVATE_KEY_ID" \
+            PGP_PRIVATE_KEY_PASSPHRASE="$PGP_PRIVATE_KEY_PASSPHRASE" \
+            RSA_PRIVATE_KEY_FILE="$RSA_PRIVATE_KEY_FILE" RSA_PRIVATE_KEY_PASSPHRASE="$RSA_PRIVATE_KEY_PASSPHRASE" \
+            VERSION="$VERSION" BUILD_OS="${{ matrix.goos }}" BUILD_ARCH="${{ matrix.goarch }}" package_all
+
+          cp build/bin/anetctl "dist/anetctl_${{ matrix.goos }}_${{ matrix.goarch }}"
+
+          rm -f "$PGP_PRIVATE_KEY_FILE" "$RSA_PRIVATE_KEY_FILE"
+
+          echo "Artifacts for ${{ matrix.goos }}/${{ matrix.goarch }}:"
+          find dist -maxdepth 1 -type f | sort
+
+      - name: Upload workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-${{ matrix.goos }}-${{ matrix.goarch }}
+          path: dist/*
+          if-no-files-found: error
+
+  upload-release:
+    name: Upload release assets
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Download all workflow artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: release-assets
+          merge-multiple: true
+
+      - name: Show collected assets
+        run: |
+          echo "Collected assets:"
+          find release-assets -type f | sort
+
+      - name: Upload artifacts to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: |
-            dist/**
+          files: release-assets/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

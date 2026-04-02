@@ -1,8 +1,0 @@
-Package: anetctl
-Version: VERSION_NUMBER
-Section: utils
-Priority: optional
-Architecture: amd64
-Maintainer: Ben Nassif <bennassif@gmail.com>
-Description: CLI for the Atlantic.net Cloud API
- anetctl is a command-line tool for interacting with the Atlantic.net Cloud API.
